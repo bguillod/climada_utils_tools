@@ -124,14 +124,14 @@ euler2local_check() {
         printf "\nThe file on euler:${euler_file} does not exist"
         printf "\nAll files with similar name on euler:"
         local tempfile_orig_short=${tempfile_orig##*/}
-        tempfile_orig_short=${tempfile_orig_short%*.}
+        tempfile_orig_short=${tempfile_orig_short%.*}
         for file in `ssh ${USER_EULER}@euler.ethz.ch "ls tests/${tempfile_orig_short}*"`; do printf "\n$file"; done
         printf "\n"
         return
     fi
     scp ${USER_EULER}@euler.ethz.ch:/cluster/home/${USER_EULER}/tests/${euler_file} ${tempfile_modif}
-    printf "\nDifference between files (1) euler:${euler_file} and (2) ${tempfile_orig} :"
-    diff $tempfile_modif $tempfile_orig
+    printf "\nDifference between files (1) euler:${euler_file} and (2) ${tempfile_orig} :\n"
+    diff -s $tempfile_modif $tempfile_orig
     rm $tempfile_modif
     printf "\nAll files with similar name on euler:\n"
     local tempfile_orig_short=${tempfile_orig##*/}
@@ -178,7 +178,7 @@ euler2local_get() {
     fi
     scp ${USER_EULER}@euler.ethz.ch:/cluster/home/${USER_EULER}/tests/${euler_file} ${tempfile_modif}
     printf "\nDifference between files (1) euler:${euler_file} and (2) ${tempfile_orig} :"
-    diff $tempfile_modif $tempfile_orig
+    diff -s $tempfile_modif $tempfile_orig
     echo ""
     while true; do
         read -p "Do you wish to accept these changes and overwrite the local file? (y/n/c) " yn
