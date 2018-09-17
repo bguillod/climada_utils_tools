@@ -1,0 +1,18 @@
+# .bashrc
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+	. /etc/bashrc
+fi
+
+# User specific aliases and functions
+alias la='ls -a'
+alias ll='ls -la'
+#alias matlab='matlab -sd $HOME'
+module load new matlab/9.1
+module load eth_proxy
+
+MATLAB_USE_USERWORK=1
+WORKDIR='/cluster/work/climate/bguillod/'
+WORKDIR_DBRESCH='/cluster/work/climate/dbresch/'
+export MATLAB_USE_USERWORK WORKDIR WORKDIR_DBRESCH
